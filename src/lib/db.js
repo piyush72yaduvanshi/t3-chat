@@ -1,12 +1,13 @@
 import { PrismaClient } from '@prisma/client'
 
+const globalForPrisma = globalThis
 
-const db = globalThis.prisma || new PrismaClient({
-  log: ['query', 'info', 'warn', 'error'], 
+const db = globalForPrisma.prisma || new PrismaClient({
+  log: process.env.NODE_ENV === 'development' ? ['query', 'info', 'warn', 'error'] : ['error'], 
 })
 
-if (process.env.NODE_ENV === 'development') {
-  globalThis.prisma = db
+if (process.env.NODE_ENV !== 'production') {
+  globalForPrisma.prisma = db
 }
 
 export default db
