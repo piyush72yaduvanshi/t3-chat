@@ -1,99 +1,238 @@
-# T3 Chat Application
+# T3 Chat - AI-Powered Chat Application
 
-A modern chat application built with Next.js, Prisma, and Better Auth, featuring AI-powered conversations.
+<div align="center">
 
-## Features
+![T3 Chat Logo](public/logo.svg)
 
-- 🔐 GitHub OAuth authentication
-- 💬 Real-time chat interface
-- 🤖 AI-powered responses via OpenRouter
-- 📱 Responsive design with dark/light mode
-- 🗄️ Database persistence with Prisma
-- 🚀 Optimized for serverless deployment
+**A modern, full-stack AI chat application built with Next.js 16.1.1**
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-16.1.1-black?logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.1.0-blue?logo=react)](https://reactjs.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-6.16.3-2D3748?logo=prisma)](https://prisma.io/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?logo=typescript)](https://www.typescriptlang.org/)
+
+[Live Demo](https://your-demo-url.netlify.app) • [Documentation](./docs/PROJECT_OVERVIEW.md) • [API Docs](./docs/API_DOCUMENTATION.md)
+
+</div>
+
+## ✨ Features
+
+- 🔐 **Secure Authentication** - GitHub OAuth with Better Auth
+- 🤖 **Multiple AI Models** - OpenRouter integration with model selection
+- 💬 **Real-time Chat** - Streaming responses with optimistic updates
+- 📱 **Responsive Design** - Mobile-first with dark/light mode
+- 🗄️ **Persistent Storage** - PostgreSQL/SQLite with Prisma ORM
+- ⚡ **Serverless Ready** - Optimized for Netlify deployment
+- 🎨 **Modern UI** - Tailwind CSS v4 + Radix UI components
+- 🔄 **State Management** - Zustand + React Query for optimal UX
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- Node.js 18+ 
-- npm or yarn
-- Database (SQLite for development, PostgreSQL for production)
-
-### Environment Setup
-
-1. Copy the environment template:
-```bash
-cp .env.example .env
-```
-
-2. Fill in your environment variables:
-- `DATABASE_URL`: Your database connection string
-- `BETTER_AUTH_SECRET`: Generate with `openssl rand -base64 32`
-- `GITHUB_CLIENT_ID` & `GITHUB_CLIENT_SECRET`: From GitHub OAuth app
-- `OPENROUTER_API_KEY`: From OpenRouter.ai
-- `NEXT_PUBLIC_APP_URL`: Your app URL (localhost:3000 for dev)
+- **Node.js** 18.0.0 or higher
+- **npm** 8.0.0 or higher
+- **Git** for version control
 
 ### Installation
 
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd t3-chat
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Environment setup**
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Fill in your environment variables (see [Environment Variables](#environment-variables) section)
+
+4. **Database setup**
+   ```bash
+   npx prisma generate
+   npx prisma migrate dev --name init
+   ```
+
+5. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+Visit [http://localhost:3000](http://localhost:3000) to see your application running!
+
+## 🔧 Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
 ```bash
-# Install dependencies
-npm install
+# Application
+NODE_ENV=development
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 
-# Generate Prisma client
-npx prisma generate
+# Database (SQLite for development)
+DATABASE_URL=file:./dev.db
 
-# Run database migrations
-npx prisma migrate dev
+# Authentication
+BETTER_AUTH_SECRET=your-secure-random-secret  # Generate: openssl rand -base64 32
+GITHUB_CLIENT_ID=your-github-client-id
+GITHUB_CLIENT_SECRET=your-github-client-secret
 
-# Start development server
-npm run dev
+# AI Services
+OPENROUTER_API_KEY=your-openrouter-api-key
+OPENROUTER_API_URL=https://openrouter.ai/api/v1
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see the application.
+### Getting API Keys
 
-## Deployment
+- **GitHub OAuth**: Create an OAuth app at [GitHub Developer Settings](https://github.com/settings/applications/new)
+- **OpenRouter**: Get your API key from [OpenRouter.ai](https://openrouter.ai/keys)
 
-### Netlify Deployment
+## 🏗️ Tech Stack
 
-The app is configured for Netlify deployment with:
-- `netlify.toml` configuration
-- Serverless functions for API routes
-- Environment variables setup
+### Core Technologies
+- **[Next.js 16.1.1](https://nextjs.org/)** - React framework with App Router
+- **[React 19.1.0](https://reactjs.org/)** - UI library with latest features
+- **[Prisma](https://prisma.io/)** - Type-safe database ORM
+- **[Better Auth](https://better-auth.com/)** - Modern authentication library
 
-Required environment variables for production:
-- All variables from `.env.example`
-- `NODE_ENV=production`
-- `NEXT_PUBLIC_APP_URL` set to your domain
+### UI & Styling
+- **[Tailwind CSS v4](https://tailwindcss.com/)** - Utility-first CSS framework
+- **[Radix UI](https://radix-ui.com/)** - Accessible component primitives
+- **[Lucide React](https://lucide.dev/)** - Beautiful icon library
 
-### Database Setup
+### State & Data
+- **[Zustand](https://zustand-demo.pmnd.rs/)** - Lightweight state management
+- **[React Query](https://tanstack.com/query/latest)** - Server state management
+- **[Zod](https://zod.dev/)** - Schema validation
 
-For production, use PostgreSQL:
-1. Update `prisma/schema.prisma` provider to `postgresql`
-2. Update `src/lib/auth.js` provider to `postgresql`
-3. Set `DATABASE_URL` to your PostgreSQL connection string
-4. Run `npx prisma migrate deploy`
+### AI & APIs
+- **[OpenRouter](https://openrouter.ai/)** - Access to multiple AI models
+- **[AI SDK](https://sdk.vercel.ai/)** - Streaming AI responses
 
-## Tech Stack
+## 📁 Project Structure
 
-- **Framework**: Next.js 16.1.1
-- **Database**: Prisma with SQLite/PostgreSQL
-- **Authentication**: Better Auth with GitHub OAuth
-- **AI**: OpenRouter API integration
-- **Styling**: Tailwind CSS with Radix UI
-- **Deployment**: Netlify (serverless)
+```
+t3-chat/
+├── 📁 src/
+│   ├── 📁 app/                    # Next.js App Router
+│   │   ├── 📁 (auth)/            # Authentication routes
+│   │   ├── 📁 (root)/            # Protected application routes
+│   │   └── 📁 api/               # API endpoints
+│   ├── 📁 components/            # Reusable components
+│   │   ├── 📁 ai-elements/       # AI-specific components
+│   │   ├── 📁 providers/         # Context providers
+│   │   └── 📁 ui/                # Base UI components
+│   ├── 📁 lib/                   # Utility libraries
+│   └── 📁 modules/               # Feature modules
+│       ├── 📁 authentication/    # Auth logic & components
+│       ├── 📁 chat/             # Chat functionality
+│       └── 📁 ai-agent/         # AI integration
+├── 📁 prisma/                    # Database schema & migrations
+├── 📁 docs/                      # Documentation
+├── 📁 public/                    # Static assets
+├── 🔧 .env.example              # Environment template
+├── 🚀 netlify.toml              # Deployment configuration
+└── 📦 package.json              # Dependencies & scripts
+```
 
-## Security
+## 🚀 Deployment
 
-- Updated to Next.js 16.1.1 (latest secure version)
-- All dependencies audited and vulnerabilities resolved
-- Environment variables for sensitive data
-- Server-side authentication validation
+### Netlify (Recommended)
 
-## Learn More
+1. **Connect your repository** to Netlify
+2. **Set environment variables** in Netlify dashboard
+3. **Deploy automatically** - Netlify will build and deploy on every push
 
-To learn more about the technologies used:
+The project includes optimized `netlify.toml` configuration for seamless deployment.
 
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Prisma Documentation](https://www.prisma.io/docs)
-- [Better Auth Documentation](https://better-auth.com)
-- [OpenRouter API](https://openrouter.ai/docs)
+### Environment Variables for Production
+
+```bash
+NODE_ENV=production
+NEXT_PUBLIC_APP_URL=https://your-domain.netlify.app
+DATABASE_URL=postgresql://user:password@host/database  # Use PostgreSQL for production
+BETTER_AUTH_SECRET=your-production-secret
+GITHUB_CLIENT_ID=your-github-client-id
+GITHUB_CLIENT_SECRET=your-github-client-secret
+OPENROUTER_API_KEY=your-openrouter-api-key
+```
+
+For detailed deployment instructions, see the [Deployment Guide](./docs/DEPLOYMENT_GUIDE.md).
+
+## 📚 Documentation
+
+- **[Project Overview](./docs/PROJECT_OVERVIEW.md)** - Architecture and features
+- **[API Documentation](./docs/API_DOCUMENTATION.md)** - API endpoints and server actions
+- **[Database Schema](./docs/DATABASE_SCHEMA.md)** - Database design and relationships
+- **[Component Guide](./docs/COMPONENT_GUIDE.md)** - UI components and patterns
+- **[Development Guide](./docs/DEVELOPMENT_GUIDE.md)** - Local development setup
+- **[Deployment Guide](./docs/DEPLOYMENT_GUIDE.md)** - Production deployment
+
+## 🛠️ Development
+
+### Available Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+```
+
+### Database Commands
+
+```bash
+npx prisma generate          # Generate Prisma client
+npx prisma migrate dev       # Create and apply migration
+npx prisma migrate deploy    # Deploy migrations (production)
+npx prisma studio           # Open database GUI
+npx prisma db push          # Push schema changes (development)
+```
+
+## 🔒 Security
+
+- ✅ **Latest Next.js 16.1.1** - No known vulnerabilities
+- ✅ **Environment variables** - Sensitive data protection
+- ✅ **Server-side validation** - All user inputs validated
+- ✅ **OAuth authentication** - Secure GitHub integration
+- ✅ **Database security** - Parameterized queries with Prisma
+- ✅ **HTTPS enforcement** - Secure connections in production
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Development Guide](./docs/DEVELOPMENT_GUIDE.md) for:
+
+- Local development setup
+- Coding standards and conventions
+- Testing guidelines
+- Pull request process
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Vercel](https://vercel.com/) for Next.js and deployment platform
+- [Prisma](https://prisma.io/) for the excellent ORM
+- [Radix UI](https://radix-ui.com/) for accessible components
+- [OpenRouter](https://openrouter.ai/) for AI model access
+- [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
+
+---
+
+<div align="center">
+
+**[⭐ Star this repo](https://github.com/your-username/t3-chat)** if you find it helpful!
+
+Made with ❤️ by [Your Name](https://github.com/your-username)
+
+</div>
